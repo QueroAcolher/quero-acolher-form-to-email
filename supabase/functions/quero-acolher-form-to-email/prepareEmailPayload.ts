@@ -1,4 +1,4 @@
-import { type FormSubmissionData } from "./FormSubmissionData.ts";
+import { type FormSubmissionData } from './FormSubmissionData.ts';
 
 export function prepareEmailPayload(data: FormSubmissionData) {
   //
@@ -6,20 +6,20 @@ export function prepareEmailPayload(data: FormSubmissionData) {
   const subject = `New message from ${data.name}`;
   const content = [
     {
-      type: "text/plain",
+      type: 'text/plain',
       value: [
         `Nome: ${data.name}`,
         `Email: ${data.email}`,
         `Data de nascimento: ${data.dob}`,
         `Telefone: ${data.phone}`,
         `Mensagem: ${data.message}`,
-      ].join("\n"),
+      ].join('\n'),
     },
   ];
 
   return {
     personalizations: [{ to: [{ email: toEmail }] }],
-    from: { email: "test@em1257.leomeloxp.dev" },
+    from: { email: 'test@em1257.leomeloxp.dev' },
     subject,
     content,
   };
