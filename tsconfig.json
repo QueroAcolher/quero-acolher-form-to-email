@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
+    "lib": ["dom", "esnext"],
+    "types": ["deno.ns"]
+  }
+}
