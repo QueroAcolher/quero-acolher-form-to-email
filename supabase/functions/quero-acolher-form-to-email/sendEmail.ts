@@ -1,15 +1,14 @@
-import { config } from 'https://deno.land/x/dotenv/mod.ts';
+export function sendEmail(payload: unknown) {
+  const sendgridApiKey = Deno.env.get("SENDGRID_API_KEY") || "";
+  const sendgridApiUrl = Deno.env.get("SENDGRID_API_URL") || "";
 
-const env = config();
-
-export async function sendEmail(payload) {
   const headers = new Headers({
-    Authorization: `Bearer ${env.SENDGRID_API_KEY}`,
-    'Content-Type': 'application/json',
+    Authorization: `Bearer ${sendgridApiKey}`,
+    "Content-Type": "application/json",
   });
 
-  return fetch(env.SENDGRID_API_URL, {
-    method: 'POST',
+  return fetch(sendgridApiUrl, {
+    method: "POST",
     headers,
     body: JSON.stringify(payload),
   });
