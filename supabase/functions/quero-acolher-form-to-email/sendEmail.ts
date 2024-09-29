@@ -11,13 +11,7 @@ export function sendEmail(payload: unknown) {
   });
 
   if (result.statusCode) {
-    return new Response(JSON.stringify(result), {
-      status: 503,
-      headers: {
-        ...corsHeaders,
-        'Content-Type': 'application/json',
-      },
-    });
+    throw new Error(JSON.stringify(result));
   }
 
   return result;
