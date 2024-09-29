@@ -1,14 +1,11 @@
 export function sendEmail(payload: unknown) {
-  const sendgridApiKey = Deno.env.get("SENDGRID_API_KEY") || "";
-  const sendgridApiUrl = Deno.env.get("SENDGRID_API_URL") || "";
-
-  const headers = new Headers({
-    Authorization: `Bearer ${sendgridApiKey}`,
-    "Content-Type": "application/json",
+  const headers = new Headers( {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${Deno.env.get('RESEND_API_KEY')}`,
   });
 
-  return fetch(sendgridApiUrl, {
-    method: "POST",
+  return await fetch(Deno.env.get('RESEND_API_URL'), {
+    method: 'POST',
     headers,
     body: JSON.stringify(payload),
   });

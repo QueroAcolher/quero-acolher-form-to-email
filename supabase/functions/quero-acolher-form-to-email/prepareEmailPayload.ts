@@ -18,9 +18,9 @@ export function prepareEmailPayload(data: FormSubmissionData) {
   ];
 
   return {
-    personalizations: [{ to: [{ email: toEmail }] }],
-    from: { email: 'test@em1257.leomeloxp.dev' },
+    from: 'noreply@acolhimentofamiliar.pt',
+    to: toEmail,
     subject,
-    content,
+    html: content,
   };
 }
