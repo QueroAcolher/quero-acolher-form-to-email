@@ -38,12 +38,12 @@ Deno.serve(async (req) => {
       headers: {
         ...corsHeaders,
       },
-      status: 302, // 302 Found for temporary redirect
+      status: 202, // 302 Found for temporary redirect
     });
   } catch (error) {
     return new Response(error.message, {
       headers: { ...corsHeaders },
-      status: 400,
+      status: 500,
     });
   }
 });
