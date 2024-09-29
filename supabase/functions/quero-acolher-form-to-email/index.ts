@@ -47,19 +47,16 @@ Deno.serve(async (req) => {
     const payload = prepareEmailPayload(data);
     await sendEmail(payload);
 
-    console.log(
-      'req.headers.get("redirect_to")',
-      req.headers.get("redirect_to"),
-    );
     // Respond with a redirect back to the original page
     return new Response("Success", {
       headers: {
         ...corsHeaders,
-        Location: req.headers.get("redirect_to") || "",
+        Location: data.redirect_to || req.headers.get("referer") || "",
       },
       status: 302, // 302 Found for temporary redirect
     });
   } catch (error) {
+    console.error(error);
     return new Response(error.message, {
       headers: { ...corsHeaders, Location: req.headers.get("referer") || "" },
       status: 500,
