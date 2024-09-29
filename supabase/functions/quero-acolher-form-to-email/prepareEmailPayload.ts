@@ -7,17 +7,11 @@ export function prepareEmailPayload(data: FormSubmissionData) {
 
   const value = Object.entries(data).map(([key, value]) => `${key}: ${value}`)
     .join("\n");
-  const content = [
-    {
-      type: "text/plain",
-      value,
-    },
-  ];
 
   return {
-    personalizations: [{ to: [{ email: toEmail }] }],
-    from: { email: "mastodon@leomeloxp.dev" },
+    to: toEmail,
+    from: "noreply@acolhimentofamiliar.pt",
     subject,
-    content,
+    html: value,
   };
 }
