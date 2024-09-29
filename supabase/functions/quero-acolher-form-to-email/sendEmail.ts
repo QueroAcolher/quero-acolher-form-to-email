@@ -4,9 +4,21 @@ export function sendEmail(payload: unknown) {
     Authorization: `Bearer ${Deno.env.get("RESEND_API_KEY")}`,
   });
 
-  return fetch(Deno.env.get("RESEND_API_URL"), {
-    method: "POST",
+  const result = await fetch(Deno.env.get('RESEND_API_URL'), {
+    method: 'POST',
     headers,
     body: JSON.stringify(payload),
   });
+
+  if (result.statusCode) {
+    return new Response(JSON.stringify(result), {
+      status: 503,
+      headers: {
+        ...corsHeaders,
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  return result;
 }
