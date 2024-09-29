@@ -1,26 +1,23 @@
-import { type FormSubmissionData } from './FormSubmissionData.ts';
+import { type FormSubmissionData } from "./FormSubmissionData.ts";
 
 export function prepareEmailPayload(data: FormSubmissionData) {
   //
   const toEmail = data.email;
   const subject = `New message from ${data.name}`;
+
+  const value = Object.entries(data).map(([key, value]) => `${key}: ${value}`)
+    .join("\n");
   const content = [
     {
-      type: 'text/plain',
-      value: [
-        `Nome: ${data.name}`,
-        `Email: ${data.email}`,
-        `Data de nascimento: ${data.dob}`,
-        `Telefone: ${data.phone}`,
-        `Mensagem: ${data.message}`,
-      ].join('\n'),
+      type: "text/plain",
+      value,
     },
   ];
 
   return {
-    from: 'noreply@acolhimentofamiliar.pt',
-    to: toEmail,
+    personalizations: [{ to: [{ email: toEmail }] }],
+    from: { email: "mastodon@leomeloxp.dev" },
     subject,
-    html: content,
+    content,
   };
 }
