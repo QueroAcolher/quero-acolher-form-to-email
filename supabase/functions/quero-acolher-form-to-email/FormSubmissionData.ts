@@ -1,7 +1,3 @@
-export interface FormSubmissionData {
-  name: string;
-  email: string;
-  dob: string;
-  phone: string;
-  message: string;
-}
+export type FormSubmissionData = Record<string, string> & {
+  redirect_to: string;
+};
