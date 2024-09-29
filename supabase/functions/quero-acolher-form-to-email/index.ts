@@ -11,6 +11,13 @@ import { sendEmail } from "./sendEmail.ts";
 
 console.log("Hello from Functions!");
 
+const requiredKeys = [
+  "Nome",
+  "Email",
+  "Data de nascimento",
+  "Antecedentes Criminais",
+];
+
 Deno.serve(async (req) => {
   // This is needed if you're planning to invoke your function from a browser.
   if (req.method === "OPTIONS") {
@@ -29,6 +36,13 @@ Deno.serve(async (req) => {
     const data = Object.fromEntries(
       formData.entries(),
     ) as unknown as FormSubmissionData;
+
+    if (requiredKeys.every((key) => !data[key])) {
+      return new Response("Unprocessable Entity", {
+        headers: corsHeaders,
+        status: 422,
+      });
+    }
 
     const payload = prepareEmailPayload(data);
     await sendEmail(payload);
